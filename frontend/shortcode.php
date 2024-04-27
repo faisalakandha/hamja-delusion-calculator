@@ -18,7 +18,7 @@ function DelusionCalculator()
 
 
 <div  class="bg-white p-8 rounded-lg shadow max-w-md mx-auto">
-    <h2 class="text-2xl font-semibold mb-6">States meet your standards?</h2>
+    <h2 class="text-2xl font-semibold mb-6">What percent of men in the United States meet your standards?</h2>
     <div class="space-y-6">
       <div>
         <p class="font-medium mb-2">Gender</p>
