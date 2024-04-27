@@ -166,6 +166,6 @@ function DelusionCalculator()
     return $content;
 }
 
-add_shortcode('sentencesummary_shortcode', 'DelusionCalculator');
+add_shortcode('delusioncalculator_shortcode', 'DelusionCalculator');
 
 ?>
