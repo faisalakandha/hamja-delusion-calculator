@@ -10,7 +10,7 @@
  * License: GPL2
  **/
 
- require_once(plugin_dir_path(__FILE__) . 'shortcode.php');
+ require_once(plugin_dir_path(__FILE__) . 'frontend/shortcode.php');
 
 
  function my_plugin_activate()
