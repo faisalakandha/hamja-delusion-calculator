@@ -14,41 +14,43 @@ function DelusionCalculator()
       crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet"
       href="http://wp.docker.localhost:8000/wp-content/plugins/hamja-delusion-calculator/frontend/range.css" />
+
+    <style>
+      /* Style for dropdown options */
+      #ethnicity-options {
+        padding: 0;
+        list-style: none;
+      }
+
+      #ethnicity-options li {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      #ethnicity-options li:hover {
+        background-color: #f3f4f6;
+      }
+    </style>
+
   </head>
 
   <body>
 
 
     <div class="bg-white p-8 rounded-lg shadow max-w-md mx-auto">
-      <h2 class="text-2xl font-semibold mb-6">States meet your standards?</h2>
+      <h2 class="text-2xl font-semibold mb-6">What Percentage of People in United States meet your standards?</h2>
       <div class="space-y-6">
         <div>
           <p class="font-medium mb-2">Gender</p>
           <div class="flex gap-2">
             <button
-              class="inline-flex hover:bg-black hover:text-white items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 flex-1">
+              class="inline-flex hover:bg-black hover:text-white border border-input items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 flex-1">
               Men
             </button>
             <button
               class="inline-flex hover:bg-black hover:text-white items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex-1">
               Women
-            </button>
-          </div>
-        </div>
-        <div>
-          <p class="font-medium mb-2">Wants kids</p>
-          <div class="flex gap-2">
-            <button
-              class="inline-flex hover:bg-black hover:text-white items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex-1">
-              Either
-            </button>
-            <button
-              class="inline-flex hover:bg-black hover:text-white items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 flex-1">
-              Yes
-            </button>
-            <button
-              class="inline-flex hover:bg-black hover:text-white items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex-1">
-              No
             </button>
           </div>
         </div>
@@ -129,22 +131,53 @@ function DelusionCalculator()
       </div>
       <div>
         <p class="font-medium mb-2">Ethnicity</p>
-        <button type="button" role="combobox" aria-controls="radix-:R1clafnnja:" aria-expanded="false"
-          aria-autocomplete="none" dir="ltr" data-state="closed" data-placeholder=""
-          class="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-          id="ethnicity">
-          <span style="pointer-events:none">Any</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="h-4 w-4 opacity-50" aria-hidden="true">
-            <path d="m6 9 6 6 6-6"></path>
-          </svg>
-        </button>
-        <select aria-hidden="true" tabindex="-1"
-          style="position:absolute;border:0;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;word-wrap:normal">
-          <option value=""></option>
-        </select>
+        <div class="relative">
+          <button type="button" role="combobox" aria-controls="ethnicity-options" aria-expanded="false"
+            aria-autocomplete="none" dir="ltr" data-state="closed" data-placeholder=""
+            class="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            id="ethnicity-toggle">
+            <span id="selected-ethnicity">Any</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="h-4 w-4 opacity-50" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"></path>
+            </svg>
+          </button>
+          <ul id="ethnicity-options"
+            class="absolute z-10 hidden bg-white border border-gray-300 rounded-md py-1 mt-1 w-full">
+            <li><button type="button" value="white">White</button></li>
+            <li><button type="button" value="black">Black</button></li>
+            <li><button type="button" value="hispanic">Hispanic</button></li>
+            <li><button type="button" value="asian">Asian</button></li>
+            <li><button type="button" value="american-india-alaska-native">American Indian/Alaska Native</button></li>
+            <li><button type="button" value="other-multiple">Other/Multiple</button></li>
+          </ul>
+        </div>
       </div>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const toggleButton = document.getElementById('ethnicity-toggle');
+          const optionsList = document.getElementById('ethnicity-options');
+          const selectedEthnicity = document.getElementById('selected-ethnicity');
+
+          toggleButton.addEventListener('click', function () {
+            const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
+            toggleButton.setAttribute('aria-expanded', !isExpanded);
+            optionsList.classList.toggle('hidden');
+          });
+
+          optionsList.addEventListener('click', function (event) {
+            if (event.target.tagName === 'LI') {
+              selectedEthnicity.textContent = event.target.textContent;
+              toggleButton.setAttribute('aria-expanded', 'false');
+              optionsList.classList.add('hidden');
+            }
+          });
+        });
+      </script>
+
+
     </div>
     <div class="mt-6">
       <button
