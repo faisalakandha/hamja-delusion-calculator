@@ -1,7 +1,20 @@
 <?php
 
+require_once(plugin_dir_path(__FILE__) . '/calculator.php');
+
 function DelusionCalculator()
 {
+
+  $test_data = [
+    'age_range' => [25, 35],  // Age range between 25 and 35
+    'income_slider' => 75000,   // Minimum income of $75,000
+    'race_multiselect' => ['White', 'Asian'],  // Selected races: White and Asian
+    'gender_preference' => 'Male', // Optional: Male partner preference
+    'exclude_obese' => true,    // Optional: Exclude obese individuals
+  ];
+  
+  $results = calculate_dating_pool($test_data);
+  
   ob_start(); ?>
 
 
@@ -179,6 +192,7 @@ function DelusionCalculator()
 
 
     </div>
+    <?php print_r($results) ?>
     <div class="mt-6">
       <button
         class="inline-flex justify-between hover:bg-blue-400 text-xl py-8 bg-black text-white items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 w-full py-3">
