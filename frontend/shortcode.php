@@ -8,7 +8,9 @@ function DelusionCalculator()
   $test_data = [
     'age_range' => [25, 35],  // Age range between 25 and 35
     'income_slider' => 75000,   // Minimum income of $75,000
-    'race_multiselect' => ['White', 'Asian'],  // Selected races: White and Asian
+    'race' => 'White',  // Selected races: White and Asian
+    'height_feet' => 5,
+    'height_inches' => 11, 
     'gender_preference' => 'Male', // Optional: Male partner preference
     'exclude_obese' => true,    // Optional: Exclude obese individuals
   ];
@@ -21,6 +23,7 @@ function DelusionCalculator()
   <html>
 
   <head>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
       integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
@@ -50,6 +53,7 @@ function DelusionCalculator()
 
   <body>
 
+  <form action="#" method="POST" class="comment-form">
 
     <div class="bg-white p-8 rounded-lg shadow max-w-md mx-auto">
       <h2 class="text-2xl font-semibold mb-6">What Percentage of People in United States meet your standards?</h2>
@@ -57,18 +61,19 @@ function DelusionCalculator()
         <div>
           <p class="font-medium mb-2">Gender</p>
           <div class="flex gap-2">
-            <button
-              class="inline-flex hover:bg-black hover:text-white border border-input items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 flex-1">
+            <input type="button" id="men" name="men"
+              class="inline-flex hover:bg-black hover:text-white border border-input items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 flex-1 cursor-pointer" value="Men" 
               Men
-            </button>
-            <button
-              class="inline-flex hover:bg-black hover:text-white items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex-1">
+            />
+            <input type="button" id="women" name="women"
+              class="inline-flex hover:bg-black hover:text-white items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex-1 cursor-pointer" value="Women" 
               Women
-            </button>
+            />
           </div>
         </div>
+
         <div class="pb-6">
-          <p class="font-medium mb-2">Age</p>
+          <div class="font-medium mb-2 flex"><p>Age:</p> <span style="margin-left:auto; font-weight:bold;">25-35</span></div>
           <div slider id="slider-distance">
             <div>
               <div inverse-left style="width:70%;"></div>
@@ -77,10 +82,10 @@ function DelusionCalculator()
               <span thumb style="left:30%;"></span>
               <span thumb style="left:60%;"></span>
               <div sign style="left:30%;">
-                <span id="value">30</span>
+                <span id="value">25</span>
               </div>
               <div sign style="left:60%;">
-                <span id="value">60</span>
+                <span id="value">35</span>
               </div>
             </div>
             <input type="range" tabindex="0" value="30" max="100" min="0" step="1" oninput="
@@ -103,8 +108,20 @@ function DelusionCalculator()
           </div>
         </div>
       </div>
+
+      <fieldset class="flex my-8">
+          <div>
+            <label for="obese"><b>Exclude Obese</b></label>
+            <input type="checkbox" name="obese" id="obese" />
+          </div>
+          <div style="margin-left:auto;">
+            <label style="" for="married"><b>Exclude Married</b></label>
+            <input type="checkbox" name="married" id="married" />
+          </div>
+        </fieldset>
+
       <div class="pb-6">
-        <p class="font-medium mb-2">Height</p>
+        <div class="font-medium mb-2 flex"><p>Height:</p> <span style="margin-left:auto; font-weight:bold;">5'0''-6'0''</span></div>
         <div slider id="slider-distance">
           <div>
             <div inverse-left style="width:70%;"></div>
@@ -166,6 +183,14 @@ function DelusionCalculator()
             <li><button type="button" value="other-multiple">Other/Multiple</button></li>
           </ul>
         </div>
+        <div class="mt-6">
+      <button
+        class="inline-flex justify-between hover:bg-blue-400 text-xl py-8 bg-black text-white items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 w-full py-3">
+        Let's Find Out <i class="fa-regular fa-circle-right"></i>
+      </button>
+    </div>
+    <p class="text-center text-sm text-gray-500 mt-4">Calculated using U.S. Census Bureau Data</p>
+    </div>
       </div>
 
       <script>
@@ -193,15 +218,8 @@ function DelusionCalculator()
 
     </div>
     <?php print_r($results) ?>
-    <div class="mt-6">
-      <button
-        class="inline-flex justify-between hover:bg-blue-400 text-xl py-8 bg-black text-white items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 w-full py-3">
-        Let's Find Out <i class="fa-regular fa-circle-right"></i>
-      </button>
-    </div>
-    <p class="text-center text-sm text-gray-500 mt-4">Calculated using U.S. Census Bureau Data</p>
-    </div>
 
+      </form>
   </body>
 
   </html>
