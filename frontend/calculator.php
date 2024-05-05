@@ -10,22 +10,25 @@ function calculate_dating_pool($data) {
   $age_min = $data['age_range'][0];
   $age_max = $data['age_range'][1];
   $min_income = $data['income_slider'];
-  $selected_races = $data['race_multiselect'];
+  $race = $data['race'];
   $gender_preference = $data['gender_preference']; // Male or Female (optional)
   $exclude_obese = isset($data['exclude_obese']) ? $data['exclude_obese'] : false; // Optional checkbox
+  $height_feet = $data['height_feet'];
+  $height_inches = $data['height_inches'];
 
   // Build the base query
   $sql = "SELECT * 
-          FROM $nhis_table 
-          INNER JOIN $demographics_table demo ON nhis.Age = demo.Age 
-          AND nhis.Race = demo.Race";
+          FROM $nhis_table";
 
   // Apply filters based on user preferences
   $where_clauses = [];
 
   $where_clauses[] = "nhis.Age BETWEEN $age_min AND $age_max";
   $where_clauses[] = "nhis.Income >= $min_income";
-  $where_clauses[] = "demo.Race IN ('" . implode("','", $selected_races) . "')";
+  $where_clauses[] = "nhis.height_feet >= $height_feet";
+  $where_clauses[] = "nhis.height_inches >= $height_inches";
+  $where_clauses[] = "nhis.Race = '$race'";
+
 
   // Optional gender preference filter
   if ($gender_preference) {
@@ -63,10 +66,11 @@ function calculate_dating_pool($data) {
   $results = [
     'dating_pool_size' => $dating_pool_size,
     'percentage' => $rounded_percentage,
-    'filtered_data' => $filtered_results, // Optional: Include details of filtered individuals
+    'sql' => $prepared_sql,
+    'input' => $data
   ];
 
-  return $filtered_results;
+  return $results;
 }
 
 
