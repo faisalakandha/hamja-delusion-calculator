@@ -80,8 +80,12 @@ function DelusionCalculator()
 
           <div class="pb-6">
             <div class="font-medium mb-2 flex">
-              <p>Age:</p> <span style="margin-left:auto; font-weight:bold;">25-35</span>
+              <p>Age:</p>
+              <span id="leftThumbValue" style="margin-left:auto; font-weight:bold;">25</span>
+              <span>-</span>
+              <span id="rightThumbValue" style="font-weight:bold;">35</span>
             </div>
+
             <div slider id="slider-distance">
               <div>
                 <div inverse-left style="width:70%;"></div>
@@ -204,6 +208,30 @@ function DelusionCalculator()
       </div>
 
       <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+          const leftThumbValue = document.getElementById('leftThumbValue');
+          const rightThumbValue = document.getElementById('rightThumbValue');
+
+          // Get the sliders
+          const leftSlider = document.querySelector('input[type="range"][tabindex="0"][value="30"]');
+          const rightSlider = document.querySelector('input[type="range"][tabindex="0"][value="60"]');
+
+          // Update the values initially
+          leftThumbValue.textContent = leftSlider.value;
+          rightThumbValue.textContent = rightSlider.value;
+
+          // Add event listeners to update the values when sliders are moved
+          leftSlider.addEventListener('input', function () {
+            leftThumbValue.textContent = this.value;
+          });
+
+          rightSlider.addEventListener('input', function () {
+            rightThumbValue.textContent = this.value;
+          });
+        });
+
+
         document.addEventListener("DOMContentLoaded", function () {
           const toggleButton = document.getElementById('ethnicity-toggle');
           const optionsList = document.getElementById('ethnicity-options');
@@ -257,7 +285,7 @@ function DelusionCalculator()
       });
 
     </script>
-    
+
   </body>
 
   </html>
