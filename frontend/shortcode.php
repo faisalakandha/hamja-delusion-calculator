@@ -182,6 +182,8 @@ function DelusionCalculator()
       document.getElementById('leftThumbValueH').textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
       document.getElementById('leftThumb').setAttribute('data-feet', Math.floor(this.value / 12));
       document.getElementById('leftThumb').setAttribute('data-inches', this.value % 12);
+      document.getElementById('leftThumbFeet').textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
+
     " />
 
             <input type="range" tabindex="0" value="60" max="100" min="0" step="1" oninput="
@@ -194,6 +196,7 @@ function DelusionCalculator()
       document.getElementById('rightThumbValueH').textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
       document.getElementById('rightThumb').setAttribute('data-feet', Math.floor(this.value / 12));
       document.getElementById('rightThumb').setAttribute('data-inches', this.value % 12);
+      document.getElementById('rightThumbFeet').textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
     " />
           </div>
         </div>
