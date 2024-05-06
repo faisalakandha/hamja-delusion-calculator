@@ -32,6 +32,25 @@ function DelusionCalculator()
       href="http://wp.docker.localhost:8000/wp-content/plugins/hamja-delusion-calculator/frontend/range.css" />
 
     <style>
+      /* Style for the thumbs */
+      .thumb {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: white;
+        transform: translateX(-50%);
+        cursor: pointer;
+        z-index: 2;
+        transition: background-color 0.3s ease;
+        top: -3px;
+      }
+
+      .thumb:hover {
+        background-color: #805ad5;
+      }
+
+
       .selected {
         background-color: black;
         /* or any other desired background color */
@@ -134,41 +153,52 @@ function DelusionCalculator()
 
         <div class="pb-6">
           <div class="font-medium mb-2 flex">
-            <p>Height:</p> <span style="margin-left:auto; font-weight:bold;">5'0''-6'0''</span>
+            <p>Height:</p>
+            <span id="leftThumbValueH" style="margin-left:auto; font-weight:bold;">5'0''</span>
+            <span>-</span>
+            <span id="rightThumbValueH" style="font-weight:bold;">6'0''</span>
           </div>
-          <div slider id="slider-distance">
+          <div slider id="slider-height">
             <div>
               <div inverse-left style="width:70%;"></div>
               <div inverse-right style="width:70%;"></div>
               <div range style="left:30%;right:40%;"></div>
-              <span thumb style="left:30%;"></span>
-              <span thumb style="left:60%;"></span>
+              <span class="thumb drop-shadow-xl" id="leftThumb" style="left:30%;" data-feet="5" data-inches="0"></span>
+              <span class="thumb drop-shadow-xl" id="rightThumb" style="left:60%;" data-feet="6" data-inches="0"></span>
               <div sign style="left:30%;">
-                <span id="value">30</span>
+                <span id="leftThumbFeet">5</span>'<span id="leftThumbInches">0</span>"
               </div>
               <div sign style="left:60%;">
-                <span id="value">60</span>
+                <span id="rightThumbFeet">6</span>'<span id="rightThumbInches">0</span>"
               </div>
             </div>
             <input type="range" tabindex="0" value="30" max="100" min="0" step="1" oninput="
-  this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
-  var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
-  var children = this.parentNode.childNodes[1].childNodes;
-  children[1].style.width=value+'%';
-  children[5].style.left=value+'%';
-  children[7].style.left=value+'%';children[11].style.left=value+'%';
-  children[11].childNodes[1].innerHTML=this.value;" />
+      this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
+      var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+      var children = this.parentNode.childNodes[1].childNodes;
+      children[1].style.width=value+'%';
+      children[5].style.left=value+'%';
+      children[7].style.left=value+'%';children[11].style.left=value+'%';
+      document.getElementById('leftThumbValueH').textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
+      document.getElementById('leftThumb').setAttribute('data-feet', Math.floor(this.value / 12));
+      document.getElementById('leftThumb').setAttribute('data-inches', this.value % 12);
+    " />
 
             <input type="range" tabindex="0" value="60" max="100" min="0" step="1" oninput="
-  this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
-  var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
-  var children = this.parentNode.childNodes[1].childNodes;
-  children[3].style.width=(100-value)+'%';
-  children[5].style.right=(100-value)+'%';
-  children[9].style.left=value+'%';children[13].style.left=value+'%';
-  children[13].childNodes[1].innerHTML=this.value;" />
+      this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
+      var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+      var children = this.parentNode.childNodes[1].childNodes;
+      children[3].style.width=(100-value)+'%';
+      children[5].style.right=(100-value)+'%';
+      children[9].style.left=value+'%';children[13].style.left=value+'%';
+      document.getElementById('rightThumbValueH').textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
+      document.getElementById('rightThumb').setAttribute('data-feet', Math.floor(this.value / 12));
+      document.getElementById('rightThumb').setAttribute('data-inches', this.value % 12);
+    " />
           </div>
         </div>
+
+
         <div class="py-6">
           <p class="font-medium mb-2">Minimum Income</p>
           <input class="w-full h-10" type="range" min="1" max="100" value="50">
