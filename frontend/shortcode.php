@@ -100,9 +100,9 @@ function DelusionCalculator()
           <div class="pb-6">
             <div class="font-medium mb-2 flex">
               <p>Age:</p>
-              <span id="leftThumbValue" style="margin-left:auto; font-weight:bold;">25</span>
+              <span id="leftThumbValue" style="margin-left:auto; font-weight:bold;">30</span>
               <span>-</span>
-              <span id="rightThumbValue" style="font-weight:bold;">35</span>
+              <span id="rightThumbValue" style="font-weight:bold;">60</span>
             </div>
 
             <div slider id="slider-distance">
@@ -113,10 +113,10 @@ function DelusionCalculator()
                 <span thumb style="left:30%;"></span>
                 <span thumb style="left:60%;"></span>
                 <div sign style="left:30%;">
-                  <span id="value">25</span>
+                  <span id="value">30</span>
                 </div>
                 <div sign style="left:60%;">
-                  <span id="value">35</span>
+                  <span id="value">60</span>
                 </div>
               </div>
               <input type="range" tabindex="0" value="30" max="100" min="0" step="1" oninput="
