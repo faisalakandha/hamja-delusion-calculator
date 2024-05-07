@@ -74,6 +74,7 @@ function DelusionCalculator()
       #ethnicity-options li:hover {
         background-color: #f3f4f6;
       }
+      
     </style>
 
   </head>
@@ -82,7 +83,7 @@ function DelusionCalculator()
 
     <form action="#" method="POST" class="comment-form">
 
-      <div class="bg-white p-8 rounded-lg shadow max-w-md mx-auto">
+      <div style="box-shadow: 0px 20px 20px 0px lightblue;" class="bg-white p-8 rounded-lg shadow max-w-md mx-auto">
         <h2 class="text-2xl font-semibold mb-6">What Percentage of People in United States meet your standards?</h2>
         <div class="space-y-6">
           <div>
@@ -202,9 +203,51 @@ function DelusionCalculator()
         </div>
 
 
-        <div class="py-6">
-          <p class="font-medium mb-2">Minimum Income</p>
-          <input class="w-full h-10" type="range" min="1" max="100" value="50">
+        <div class="pb-6">
+          <div class="font-medium mb-2 flex py-6">
+            <p>Minimum Income:</p>
+            <span style="margin-left:auto;">$</span><span id="leftThumbValueI" style="font-weight:bold;">30</span><span>K</span>
+            <span> - </span>
+            <span >$</span><span id="rightThumbValueI" style="font-weight:bold;">60</span><span>K</span>
+          </div>
+
+          <div slider id="slider-distance">
+            <div>
+              <div inverse-left style="width:70%;"></div>
+              <div inverse-right style="width:70%;"></div>
+              <div range style="left:30%;right:40%;"></div>
+              <span thumb style="left:30%;"></span>
+              <span thumb style="left:60%;"></span>
+              <div sign style="left:30%;">
+                <span id="value">30</span>
+              </div>
+              <div sign style="left:60%;">
+                <span id="value">60</span>
+              </div>
+            </div>
+            <input type="range" tabindex="0" value="30" max="100" min="0" step="1" oninput="
+  this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
+  var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+  var children = this.parentNode.childNodes[1].childNodes;
+  children[1].style.width=value+'%';
+  children[5].style.left=value+'%';
+  children[7].style.left=value+'%';children[11].style.left=value+'%';
+  children[11].childNodes[1].innerHTML=this.value * 5;
+  document.getElementById('leftThumbValueI').textContent = `${this.value * 5}`;
+  " />
+
+            <input type="range" tabindex="0" value="60" max="100" min="0" step="1" oninput="
+  this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
+  var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+  var children = this.parentNode.childNodes[1].childNodes;
+  children[3].style.width=(100-value)+'%';
+  children[5].style.right=(100-value)+'%';
+  children[9].style.left=value+'%';children[13].style.left=value+'%';
+  children[13].childNodes[1].innerHTML=this.value * 5;
+  document.getElementById('rightThumbValueI').textContent = `${this.value * 5}`;
+
+  " />
+          </div>
         </div>
         <div>
           <p class="font-medium mb-2">Ethnicity</p>
@@ -288,7 +331,6 @@ function DelusionCalculator()
 
 
       </div>
-      <?php print_r($results) ?>
 
     </form>
 
