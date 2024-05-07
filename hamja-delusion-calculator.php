@@ -11,6 +11,8 @@
  **/
 
  require_once(plugin_dir_path(__FILE__) . 'frontend/shortcode.php');
+ require_once(plugin_dir_path(__FILE__) . 'frontend/shortcode-form.php');
+ require_once(plugin_dir_path(__FILE__) . 'frontend/shortcode-form-data.php');
 
 
  function my_plugin_activate()
