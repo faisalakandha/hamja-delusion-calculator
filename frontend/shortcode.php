@@ -74,14 +74,13 @@ function DelusionCalculator()
       #ethnicity-options li:hover {
         background-color: #f3f4f6;
       }
-      
     </style>
 
   </head>
 
   <body>
 
-    <form action="#" method="POST" class="comment-form">
+    <form action="/test-form-data/" method="POST" class="comment-form">
 
       <div style="box-shadow: 0px 20px 20px 0px lightblue;" class="bg-white p-8 rounded-lg shadow max-w-md mx-auto">
         <h2 class="text-2xl font-semibold mb-6">What Percentage of People in United States meet your standards?</h2>
@@ -120,7 +119,7 @@ function DelusionCalculator()
                   <span id="value">60</span>
                 </div>
               </div>
-              <input type="range" tabindex="0" value="30" max="100" min="0" step="1" oninput="
+              <input type="range" name="ageMin" tabindex="0" value="30" max="100" min="0" step="1" oninput="
   this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
   var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
   var children = this.parentNode.childNodes[1].childNodes;
@@ -129,7 +128,7 @@ function DelusionCalculator()
   children[7].style.left=value+'%';children[11].style.left=value+'%';
   children[11].childNodes[1].innerHTML=this.value;" />
 
-              <input type="range" tabindex="0" value="60" max="100" min="0" step="1" oninput="
+              <input type="range" name="ageMax" tabindex="0" value="60" max="100" min="0" step="1" oninput="
   this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
   var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
   var children = this.parentNode.childNodes[1].childNodes;
@@ -173,7 +172,7 @@ function DelusionCalculator()
                 <span id="rightThumbFeet">6</span>'<span id="rightThumbInches">0</span>"
               </div>
             </div>
-            <input type="range" tabindex="0" value="30" max="100" min="0" step="1" oninput="
+            <input name="heightMin" type="range" tabindex="0" value="30" max="100" min="0" step="1" oninput="
       this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
       var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
       var children = this.parentNode.childNodes[1].childNodes;
@@ -187,7 +186,7 @@ function DelusionCalculator()
 
     " />
 
-            <input type="range" tabindex="0" value="60" max="100" min="0" step="1" oninput="
+            <input name="heightMax" type="range" tabindex="0" value="60" max="100" min="0" step="1" oninput="
       this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
       var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
       var children = this.parentNode.childNodes[1].childNodes;
@@ -205,10 +204,11 @@ function DelusionCalculator()
 
         <div class="pb-6">
           <div class="font-medium mb-2 flex py-6">
-            <p>Minimum Income:</p>
-            <span style="margin-left:auto;">$</span><span id="leftThumbValueI" style="font-weight:bold;">30</span><span>K</span>
+            <p>Income:</p>
+            <span style="margin-left:auto;">$</span><span id="leftThumbValueI"
+              style="font-weight:bold;">30</span><span>K</span>
             <span> - </span>
-            <span >$</span><span id="rightThumbValueI" style="font-weight:bold;">60</span><span>K</span>
+            <span>$</span><span id="rightThumbValueI" style="font-weight:bold;">60</span><span>K</span>
           </div>
 
           <div slider id="slider-distance">
@@ -225,7 +225,7 @@ function DelusionCalculator()
                 <span id="value">60</span>
               </div>
             </div>
-            <input type="range" tabindex="0" value="30" max="100" min="0" step="1" oninput="
+            <input name="minIncome" type="range" tabindex="0" value="30" max="100" min="0" step="1" oninput="
   this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
   var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
   var children = this.parentNode.childNodes[1].childNodes;
@@ -236,7 +236,7 @@ function DelusionCalculator()
   document.getElementById('leftThumbValueI').textContent = `${this.value * 5}`;
   " />
 
-            <input type="range" tabindex="0" value="60" max="100" min="0" step="1" oninput="
+            <input name="maxIncome" type="range" tabindex="0" value="60" max="100" min="0" step="1" oninput="
   this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
   var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
   var children = this.parentNode.childNodes[1].childNodes;
@@ -252,35 +252,24 @@ function DelusionCalculator()
         <div>
           <p class="font-medium mb-2">Ethnicity</p>
           <div class="relative">
-            <button type="button" role="combobox" aria-controls="ethnicity-options" aria-expanded="false"
-              aria-autocomplete="none" dir="ltr" data-state="closed" data-placeholder=""
-              class="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              id="ethnicity-toggle">
-              <span id="selected-ethnicity">Any</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="h-4 w-4 opacity-50" aria-hidden="true">
-                <path d="m6 9 6 6 6-6"></path>
-              </svg>
-            </button>
-            <ul id="ethnicity-options"
-              class="absolute z-10 hidden bg-white border border-gray-300 rounded-md py-1 mt-1 w-full">
-              <li><button type="button" value="white">White</button></li>
-              <li><button type="button" value="black">Black</button></li>
-              <li><button type="button" value="hispanic">Hispanic</button></li>
-              <li><button type="button" value="asian">Asian</button></li>
-              <li><button type="button" value="american-india-alaska-native">American Indian/Alaska Native</button></li>
-              <li><button type="button" value="other-multiple">Other/Multiple</button></li>
-            </ul>
+            <select name="ethnicity" id="ethnicity">
+              <option value="white">White</option>
+              <option value="black">Black</option>
+              <option value="hispanic">Hispanic</option>
+              <option value="asian">Asian</option>
+              <option value="american-indian-alaska-native">American Indian/Alaska Native</option>
+              <option value="other-multiple">Other/Multiple</option>
+            </select>
           </div>
           <div class="mt-6">
-            <button
+            <button type="submit"
               class="inline-flex justify-between hover:bg-blue-400 text-xl py-8 bg-black text-white items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 w-full py-3">
               Let's Find Out <i class="fa-regular fa-circle-right"></i>
             </button>
           </div>
           <p class="text-center text-sm text-gray-500 mt-4">Calculated using U.S. Census Bureau Data</p>
         </div>
+
       </div>
 
       <script>
