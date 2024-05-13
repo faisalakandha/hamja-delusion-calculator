@@ -107,7 +107,7 @@ function DelusionCalculator()
           <div class="py-2">
             <div class="font-medium mb-2 flex">
               <p class="font-bold">Age</p>
-              <div style="margin-left:auto; margin-right:30px; width: 250px;" slider id="slider-distance">
+              <div style="margin-left:auto; margin-right:10px; width: 200px;" slider id="slider-distance">
                 <div>
                   <div inverse-left style="width:70%;"></div>
                   <div inverse-right style="width:70%;"></div>
@@ -139,7 +139,7 @@ function DelusionCalculator()
   children[9].style.left=value+'%';children[13].style.left=value+'%';
   children[13].childNodes[1].innerHTML=this.value;" />
               </div>
-              <div>
+              <div style="margin-right:50px;">
                 <span id="leftThumbValue" style="font-weight:bold;">30</span>
                 <span>-</span>
                 <span id="rightThumbValue" style="font-weight:bold;">60</span>
