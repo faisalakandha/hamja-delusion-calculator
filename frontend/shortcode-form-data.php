@@ -63,7 +63,7 @@ function handle_delusion_calculator_form()
             echo "<p class='text-4xl py-3'>$imageCount/5</p>";
 
 
-            echo '<div class="flex p-2 items-center justify-center py-5">';
+            echo '<div class="flex p-2 items-center justify-center py-2">';
 
             // Print the x images
             for ($i = 0; $i < $imageCount; $i++) {
@@ -129,13 +129,14 @@ function handle_delusion_calculator_form()
 
         <body>
             <div class="flex items-center justify-center flex-col space-y-8 bg-black text-white p-12">
-                <h1 style="font-size:80px" class="text-blue-400"> <?php echo $results["percentage"] ?> %</h1>
+                <div style="font-size:80px;" class="text-[#FF1D74]"> <?php echo $results["percentage"] ?> %</div>
                 <p>of all <?php echo $american_population['gender'] ?> in the United States meet your standards</p>
-                <div class="flex bg-[#292929] p-4">
+                <div class="flex gap-x-4 bg-[#292929] pt-4 px-4">
                     <p>That’s <?php echo number_format($matched_population) ?> of
                         <?php echo number_format($american_population['population']) ?> American
-                        <?php echo $american_population['gender'] ?>
+                        <?php echo $american_population['gender'] ?> 
                     </p>
+            		<img style="margin-top:-18px;" src="https://delusionmeter.com/wp-content/plugins/hamja-delusion-calculator/frontend/american-flag.svg" width="20px" height="20px" />
                 </div>
 
                 <!--- Heat Map Start -->
@@ -151,14 +152,14 @@ function handle_delusion_calculator_form()
                         }
                     }
 
-                    for ($i = 0; $i <= 431; $i++) {
+                    for ($i = 0; $i <= 439; $i++) {
                         if (!empty($random) && in_array($i, $random)) {
                             echo "<i style='color:gold' class='fa-solid fa-person px-0.5 py-0.5'></i>";
                             // Remove the element from $random
                             $key = array_search($i, $random);
                             unset($random[$key]);
                         } else {
-                            echo "<i style='color:rgb(15 23 42);' class='fa-solid fa-person px-0.5 py-0.5'></i>";
+                            echo "<i style='color:grey;' class='fa-solid fa-person px-0.5 py-0.5'></i>";
                         }
                     }
 
@@ -168,7 +169,7 @@ function handle_delusion_calculator_form()
 
                 <div class="">
                     <center>
-                        <h1 style="color:lightblue;" class="text-xl">Delusion Score</h1>
+                        <div style="" class="text-4xl text-[#FF1D74]">Delusion Score</div>
                         <div>
                             <?php printImages($results['percentage']) ?>
                         </div>
