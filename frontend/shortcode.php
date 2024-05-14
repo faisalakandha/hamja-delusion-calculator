@@ -269,7 +269,7 @@ function DelusionCalculator()
           <div class="flex">
             <div class="font-medium mb-2 font-bold">Ethnicity</div>
             <div class="relative ml-auto">
-              <select style="border: 2px solid #FF1D74;" name="ethnicity" id="ethnicity">
+              <select style="border: 1px solid grey;" name="ethnicity" id="ethnicity">
                 <option value="white">White</option>
                 <option value="black">Black</option>
                 <option value="hispanic">Hispanic</option>
