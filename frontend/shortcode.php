@@ -99,7 +99,7 @@ function DelusionCalculator()
               <button type="button" id="men" class="gender-button text-[#766C71] hover:text-black">
                 Women
               </button>
-              <input type="hidden" id="selectedGender" name="gender" value="men">
+              <input type="hidden" id="selectedGender" name="gender" value="women">
             </div>
 
           </div>
