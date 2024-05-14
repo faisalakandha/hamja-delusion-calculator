@@ -5,42 +5,42 @@ function handle_delusion_calculator_form()
     // Check if form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Retrieve form data
-        $gender = isset($_POST['men']) ? 'Male' : 'Female';
+        $gender = isset($_POST['gender']) ? ($_POST['gender'] == 'men' ? 'Male' : 'Female') : 'Male';
         $ageRangeMin = $_POST['ageMin'];
         $ageRangeMax = $_POST['ageMax'];
         $minIncome = $_POST['minIncome'];
         $maxIncome = $_POST['maxIncome'];
         $ethnicity = $_POST['ethnicity'];
         $excludeObese = isset($_POST['obese']) ? 'Yes' : 'No';
-        $excludeMarried = isset($_POST['married']) ? 'Yes' : 'No';
+        $excludeMarried = isset($_POST['married']) ? 'Single' : '';
         $minHeight = $_POST['heightMin'];
         $maxHeight = $_POST['heightMax'];
 
-        $Height = "<p>Height Range: " . floor($minHeight / 12) . "'" . ($minHeight % 12) . " - " . floor($maxHeight / 12) . "'" . ($maxHeight % 12) . "</p>";
-
-
-
-        // Display the submitted values
-        // echo "<h2>Form Submitted Successfully</h2>";
-        // echo "<p>Gender: $gender</p>";
-        // echo "<p>Age Range: $ageRangeMin - $ageRangeMax</p>";
-        // echo "<p>Minimum Income: $$minIncome K - Maximum Income: $$maxIncome K</p>";
-        // echo "<p>Ethnicity: $ethnicity</p>";
-        // echo "<p>Exclude Obese: $excludeObese</p>";
-        // echo "<p>Exclude Married: $excludeMarried</p>";
-        // echo "<p>Height Range:" . $Height . "</p>";
-
-        $test_data = [
-            'age_range' => [$ageRangeMin, $ageRangeMax],  // Age range between 25 and 35
-            'income_slider' => $minIncome * 1000,   // Minimum income of $75,000
-            'race' => ucfirst($ethnicity),  // Selected races: White and Asian
+        $ethnicity_straight = '';
+        
+        if ($ethnicity == 'american-indian-alaska-native') {
+            $ethnicity_straight = 'American Indian/Alaska Native';
+        } elseif ($ethnicity == 'other-multiple') {
+            $ethnicity_straight = 'Other/Multiple';
+        } else {
+            $ethnicity_straight = $ethnicity;
+        }
+        
+        $formData = [
+            'age_range' => [$ageRangeMin, $ageRangeMax], 
+            'income_slider_min' => $minIncome * 1000,   
+            'income_slider_max' => $maxIncome * 1000,   
+            'race' => ucfirst($ethnicity_straight) ,  // Selected races: White and Asian
             'height_feet' => floor($minHeight / 12),
             'height_inches' => ($minHeight % 12),
+            'height_feet_max' => floor($maxHeight / 12),
+            'height_inches_max' => ($maxHeight % 12),
             'gender_preference' => $gender, // Optional: Male partner preference
             'exclude_obese' => $excludeObese,    // Optional: Exclude obese individuals
+            'exclude_married' => $excludeMarried,
         ];
 
-        $results = calculate_dating_pool($test_data);
+        $results = calculate_dating_pool($formData);
         $american_population = $gender == 'Male' ? array('gender' => 'men', 'population' => 164977341) : array('gender' => 'women', 'population' => 168310216);
 
         $percentage = $results["percentage"] / 100; // Convert percentage to decimal
@@ -48,7 +48,7 @@ function handle_delusion_calculator_form()
         $matched_population = round($american_population['population'] * $percentage);
         function printImages($percentage) {
             // Define the thresholds and corresponding counts
-            $thresholds = [100, 80, 60, 40, 20,0];
+            $thresholds = [80, 70, 50, 25, 5,0];
             $counts = [0, 1, 2, 3, 4, 5];
         
             // Find the appropriate count based on the percentage
@@ -67,13 +67,13 @@ function handle_delusion_calculator_form()
 
             // Print the x images
             for ($i = 0; $i < $imageCount; $i++) {
-                echo "<img width='100px' src='https://igotstandardsbro.com/img/score_item_on.df14762f.svg' alt='x image'>";
+                echo "<img width='100px' src='https://delusionmeter.com/wp-content/uploads/2024/05/Delusion-calculator-Astronaut-Planet.png' alt='x image'>";
             }
         
             // Print the y images (if any vacancy)
             $vacancy = max(5 - $imageCount, 0);
             for ($i = 0; $i < $vacancy; $i++) {
-                echo "<img width='100px' src='https://igotstandardsbro.com/img/score_item_off.801320a1.svg' alt='y image'>";
+                echo "<img width='100px' src='https://delusionmeter.com/wp-content/uploads/2024/05/image.png' alt='y image'>";
             }
 
             // Print the count
@@ -87,19 +87,19 @@ function handle_delusion_calculator_form()
         function printImageText($count) {
             switch ($count) {
                 case 1:
-                    return "Easy to please";
+                    return "Grounded Astronaut";
                     break;
                 case 2:
-                    return "Down to earth";
+                    return "Orbiting Explorer";
                     break;
                 case 3:
-                    return "Aspiring cat lady";
+                    return "Galactic Traveler";
                     break;
                 case 4:
-                    return "Cat enthusiast";
+                    return "Star Catcher";
                     break;
                 case 5:
-                    return "You don't belong on this planet";
+                    return "Planet Rider";
                     break;
                 default:
                     return "Invalid count";
@@ -120,7 +120,7 @@ function handle_delusion_calculator_form()
                 integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
                 crossorigin="anonymous" referrerpolicy="no-referrer" />
             <link rel="stylesheet"
-                href="http://wp.docker.localhost:8000/wp-content/plugins/hamja-delusion-calculator/frontend/range.css" />
+                href="https://delusionmeter.com/wp-content/plugins/hamja-delusion-calculator/frontend/range.css" />
 
             <style>
             </style>
@@ -128,7 +128,6 @@ function handle_delusion_calculator_form()
         </head>
 
         <body>
-
             <div class="flex items-center justify-center flex-col space-y-8 bg-black text-white p-12">
                 <h1 style="font-size:80px" class="text-blue-400"> <?php echo $results["percentage"] ?> %</h1>
                 <p>of all <?php echo $american_population['gender'] ?> in the United States meet your standards</p>
@@ -142,7 +141,7 @@ function handle_delusion_calculator_form()
                 <!--- Heat Map Start -->
                 <div>
                     <?php
-                    $people_no = floor($results['percentage']);
+                    $people_no = floor($results['percentage']) * 4;
 
                     $random = array();
 
@@ -183,7 +182,6 @@ function handle_delusion_calculator_form()
         $content = ob_get_contents();
         ob_end_clean();
         return $content;
-        //   print_r($results);
     } else {
         // If form is not submitted, return an empty string
         return '<div class="items-center justify-center">No Result Found !</div>';
