@@ -90,7 +90,7 @@ function DelusionCalculator()
         </div>
         <div class="space-y-6">
           <div class="flex items-center">
-            <div class="font-medium mb-2 font-bold">Gender</div>
+            <div class="font-medium mb-2 text-black font-bolder">Gender</div>
             <div style="border-radius:5px;" class="flex gap-x-8 align-center bg-[#F4F4F4] ml-auto px-6 py-2">
               <button style="border-radius:5px;" type="button" id="women"
                 class="gender-button text-[#766C71] hover:text-black selected">
@@ -104,6 +104,34 @@ function DelusionCalculator()
 
           </div>
 
+
+          <div class="space-y-6 pb-6">
+            <div class="gender-label">
+              <label class="text-black" for="obese"><b>Exclude Obese</b></label>
+              <div class="flex gap-x-8 align-center bg-[#F4F4F4] ml-auto px-11 py-2">
+                <button type="button" id="excludeObeseYes" class="text-[#766C71] hover:text-black obese-button">
+                  Yes
+                </button>
+                <button type="button" id="excludeObeseNo" class="text-[#766C71] hover:text-black selected obese-button">
+                  No
+                </button>
+                <input type="hidden" id="selectedExcludeObese" name="excludeObese" value="no">
+              </div>
+            </div>
+            <div class="gender-label" style="margin-left:auto;">
+              <label class="text-black" style="" for="married"><b>Exclude Married</b></label>
+              <div class="flex gap-x-8 align-center bg-[#F4F4F4] ml-auto px-11 py-2">
+                <button type="button" id="excludeMarriedYes" class="text-[#766C71] hover:text-black married-button">
+                  Yes
+                </button>
+                <button type="button" id="excludeMarriedNo" class="text-[#766C71] hover:text-black selected married-button">
+                  No
+                </button>
+                <input type="hidden" id="selectedExcludeMarried" name="excludeMarried" value="no">
+              </div>
+            </div>
+          </div>
+
           <div class="py-2">
             <div class="font-medium mb-2 flex">
               <p class="font-bold">Age</p>
@@ -115,7 +143,7 @@ function DelusionCalculator()
                   <span thumb style="left:30%;"></span>
                   <span thumb style="left:60%;"></span>
                 </div>
-                <input type="range" name="ageMin" tabindex="0" value="30" max="100" min="0" step="1" oninput="
+                <input type="range" id="minAge" name="ageMin" tabindex="0" value="30" max="100" min="0" step="1" oninput="
   this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
   var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
   var children = this.parentNode.childNodes[1].childNodes;
@@ -124,7 +152,7 @@ function DelusionCalculator()
   children[7].style.left=value+'%';children[11].style.left=value+'%';
   children[11].childNodes[1].innerHTML=this.value;" />
 
-                <input type="range" name="ageMax" tabindex="0" value="60" max="100" min="0" step="1" oninput="
+                <input type="range" id="maxAge" name="ageMax" tabindex="0" value="60" max="100" min="0" step="1" oninput="
   this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
   var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
   var children = this.parentNode.childNodes[1].childNodes;
@@ -143,18 +171,6 @@ function DelusionCalculator()
 
           </div>
         </div>
-
-        <div class="space-y-6 pb-6">
-          <div>
-            <label class="text-[#FF1D74]" for="obese"><b>Exclude Obese</b></label>
-            <input type="checkbox" class="accent-pink-500" name="obese" id="obese" />
-          </div>
-          <div style="margin-left:auto;">
-            <label class="text-[#FF1D74]" style="" for="married"><b>Exclude Married</b></label>
-            <input type="checkbox" class="accent-pink-500" name="married" id="married" />
-          </div>
-        </div>
-        
 
         <div class="pb-6">
           <div class="font-medium flex">
@@ -268,8 +284,8 @@ function DelusionCalculator()
           const rightThumbValue = document.getElementById('rightThumbValue');
 
           // Get the sliders
-          const leftSlider = document.querySelector('input[type="range"][tabindex="0"][value="30"]');
-          const rightSlider = document.querySelector('input[type="range"][tabindex="0"][value="60"]');
+          const leftSlider = document.getElementById('minAge');
+          const rightSlider = document.getElementById('maxAge');
 
           // Update the values initially
           leftThumbValue.textContent = leftSlider.value;
@@ -403,8 +419,52 @@ function DelusionCalculator()
         });
       });
 
-
     </script>
+
+<script>
+  // Exclude Obese Button
+  const excludeObeseButtons = document.querySelectorAll('.obese-button');
+  excludeObeseButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      // Set the value of the hidden input to the clicked button's value
+      document.getElementById('selectedExcludeObese').value = this.id.slice(12);
+
+      // Check if the button is already selected
+      const isSelected = this.classList.contains('selected');
+      // If it's not selected, deselect all buttons and select the clicked one
+      if (!isSelected) {
+        // Reset background color for all buttons
+        excludeObeseButtons.forEach(btn => {
+          btn.classList.remove('selected');
+        });
+        // Set background color for the clicked button
+        this.classList.add('selected');
+      }
+    });
+  });
+
+  // Exclude Married Button
+  const excludeMarriedButtons = document.querySelectorAll('.married-button');
+  excludeMarriedButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      // Set the value of the hidden input to the clicked button's value
+      document.getElementById('selectedExcludeMarried').value = this.id.slice(12);
+
+      // Check if the button is already selected
+      const isSelected = this.classList.contains('selected');
+      // If it's not selected, deselect all buttons and select the clicked one
+      if (!isSelected) {
+        // Reset background color for all buttons
+        excludeMarriedButtons.forEach(btn => {
+          btn.classList.remove('selected');
+        });
+        // Set background color for the clicked button
+        this.classList.add('selected');
+      }
+    });
+  });
+</script>
+
 
   </body>
 
