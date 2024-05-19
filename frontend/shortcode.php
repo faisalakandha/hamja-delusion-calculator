@@ -164,8 +164,8 @@ function DelusionCalculator()
                 <div inverse-left style="width:70%;"></div>
                 <div inverse-right style="width:70%;"></div>
                 <div range style="left:30%;right:40%;"></div>
-                <span class="thumb drop-shadow-xl" id="leftThumb" style="left:30%;" data-feet="5" data-inches="0"></span>
-                <span class="thumb drop-shadow-xl" id="rightThumb" style="left:60%;" data-feet="6" data-inches="0"></span>
+                <span class="thumb drop-shadow-xl" id="leftThumb" style="left:30%; top:-7px;" data-feet="5" data-inches="0"></span>
+                <span class="thumb drop-shadow-xl" id="rightThumb" style="left:60%; top:-7px;" data-feet="6" data-inches="0"></span>
               </div>
               <input name="heightMin" id="heightMin" type="range" tabindex="0" value="30" max="100" min="0" step="1" oninput="
       this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
