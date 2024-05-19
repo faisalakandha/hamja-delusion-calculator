@@ -166,38 +166,23 @@ function DelusionCalculator()
                 <div range style="left:30%;right:40%;"></div>
                 <span class="thumb drop-shadow-xl" id="leftThumb" style="left:30%;" data-feet="5" data-inches="0"></span>
                 <span class="thumb drop-shadow-xl" id="rightThumb" style="left:60%;" data-feet="6" data-inches="0"></span>
-                <div sign style="left:30%;">
-                  <span id="leftThumbFeet">2</span>'<span id="leftThumbInches">6</span>"
-                </div>
-                <div sign style="left:60%;">
-                  <span id="rightThumbFeet">5</span>'<span id="rightThumbInches">0</span>"
-                </div>
               </div>
-              <input name="heightMin" type="range" tabindex="0" value="30" max="100" min="0" step="1" oninput="
+              <input name="heightMin" id="heightMin" type="range" tabindex="0" value="30" max="100" min="0" step="1" oninput="
       this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
       var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
       var children = this.parentNode.childNodes[1].childNodes;
       children[1].style.width=value+'%';
       children[5].style.left=value+'%';
       children[7].style.left=value+'%';children[11].style.left=value+'%';
-      document.getElementById('leftThumbValueH').textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
-      document.getElementById('leftThumb').setAttribute('data-feet', Math.floor(this.value / 12));
-      document.getElementById('leftThumb').setAttribute('data-inches', this.value % 12);
-      document.getElementById('leftThumbFeet').textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
-
     " />
 
-              <input name="heightMax" type="range" tabindex="0" value="60" max="100" min="0" step="1" oninput="
+              <input name="heightMax" id="heightMax" type="range" tabindex="0" value="60" max="100" min="0" step="1" oninput="
       this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
       var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
       var children = this.parentNode.childNodes[1].childNodes;
       children[3].style.width=(100-value)+'%';
       children[5].style.right=(100-value)+'%';
       children[9].style.left=value+'%';children[13].style.left=value+'%';
-      document.getElementById('rightThumbValueH').textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
-      document.getElementById('rightThumb').setAttribute('data-feet', Math.floor(this.value / 12));
-      document.getElementById('rightThumb').setAttribute('data-inches', this.value % 12);
-      document.getElementById('rightThumbFeet').textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
     " />
             </div>
             <div style="width:20%; margin-left:auto;">
@@ -220,14 +205,8 @@ function DelusionCalculator()
                 <div range style="left:30%;right:40%;"></div>
                 <span thumb style="left:30%;"></span>
                 <span thumb style="left:60%;"></span>
-                <div sign style="left:30%;">
-                  <span id="value">30</span>
-                </div>
-                <div sign style="left:60%;">
-                  <span id="value">60</span>
-                </div>
               </div>
-              <input name="minIncome" type="range" tabindex="0" value="30" max="100" min="0" step="1" oninput="
+              <input name="minIncome" id="minIncome" type="range" tabindex="0" value="30" max="100" min="0" step="1" oninput="
   this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
   var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
   var children = this.parentNode.childNodes[1].childNodes;
@@ -235,10 +214,9 @@ function DelusionCalculator()
   children[5].style.left=value+'%';
   children[7].style.left=value+'%';children[11].style.left=value+'%';
   children[11].childNodes[1].innerHTML=this.value * 5;
-  document.getElementById('leftThumbValueI').textContent = `${this.value * 5}`;
   " />
 
-              <input name="maxIncome" type="range" tabindex="0" value="60" max="100" min="0" step="1" oninput="
+              <input name="maxIncome" id="maxIncome" type="range" tabindex="0" value="60" max="100" min="0" step="1" oninput="
   this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
   var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
   var children = this.parentNode.childNodes[1].childNodes;
@@ -246,8 +224,6 @@ function DelusionCalculator()
   children[5].style.right=(100-value)+'%';
   children[9].style.left=value+'%';children[13].style.left=value+'%';
   children[13].childNodes[1].innerHTML=this.value * 5;
-  document.getElementById('rightThumbValueI').textContent = `${this.value * 5}`;
-
   " />
             </div>
             <div>
@@ -285,7 +261,7 @@ function DelusionCalculator()
       </div>
 
       <script>
-
+        // Age Slider
         document.addEventListener("DOMContentLoaded", function () {
           const leftThumbValue = document.getElementById('leftThumbValue');
           const rightThumbValue = document.getElementById('rightThumbValue');
@@ -307,6 +283,70 @@ function DelusionCalculator()
             rightThumbValue.textContent = this.value;
           });
         });
+
+        // Height Slider
+        document.addEventListener("DOMContentLoaded", function () {
+          const leftThumbValue = document.getElementById('leftThumbValueH');
+          const rightThumbValue = document.getElementById('rightThumbValueH');
+
+          // Get the sliders
+          const leftSlider = document.getElementById('heightMin');
+          const rightSlider = document.getElementById('heightMax');
+
+          // Update the values initially
+          leftThumbValue.textContent = `${Math.floor(leftSlider.value / 12)}'${leftSlider.value % 12}''`;
+          rightThumbValue.textContent = `${Math.floor(rightSlider.value / 12)}'${rightSlider.value % 12}''`;
+          const rightThumbdf = document.getElementById('rightThumb');
+          const rightThumbdi = document.getElementById('rightThumb');
+          const rightThumbf = document.getElementById('rightThumbFeet');
+
+          const leftThumbdf = document.getElementById('leftThumb');
+          const leftThumbdi = document.getElementById('leftThumb');
+          const leftThumbf = document.getElementById('leftThumbFeet');
+
+          // Add event listeners to update the values when sliders are moved
+          leftSlider.addEventListener('input', function () {
+            leftThumbValue.textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
+            const leftThumbdf = document.getElementById('leftThumb');
+            const leftThumbdi = document.getElementById('leftThumb');
+            const leftThumbf = document.getElementById('leftThumbFeet');
+          });
+
+          rightSlider.addEventListener('input', function () {
+            rightThumbValue.textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
+            rightThumbdf.setAttribute('data-feet', Math.floor(this.value / 12));
+            rightThumbdi.setAttribute('data-inches', this.value % 12);
+            rightThumbf.textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
+          });
+        });
+
+        // Income Slider
+        document.addEventListener("DOMContentLoaded", function () {
+          const leftThumbValueI = document.getElementById('leftThumbValueI');
+          const rightThumbValueI = document.getElementById('rightThumbValueI');
+          console.log("Income Sliders loaded");
+          // Get the sliders
+          const leftSliderI = document.getElementById('minIncome');
+          const rightSliderI = document.getElementById('maxIncome');
+
+          // Update the values initially
+          leftThumbValueI.textContent = `${leftSliderI.value * 5}`;
+          rightThumbValueI.textContent = `${rightSliderI.value * 5}`;
+          console.log(leftThumbValueI.textContent, "MinIncome");
+          console.log(rightThumbValueI.textContent, "MaxIncome");
+          // Add event listeners to update the values when sliders are moved
+          leftSliderI.addEventListener('input', function () {
+            leftThumbValueI.textContent = `${this.value * 5}`;
+            console.log("Listening to left slider");
+          });
+
+          rightSliderI.addEventListener('input', function () {
+            rightThumbValueI.textContent = `${this.value * 5}`;
+            console.log("Listening to right slider");
+
+          });
+        });
+
 
 
         document.addEventListener("DOMContentLoaded", function () {
