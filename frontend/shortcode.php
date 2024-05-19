@@ -154,6 +154,7 @@ function DelusionCalculator()
             <input type="checkbox" class="accent-pink-500" name="married" id="married" />
           </div>
         </div>
+        
 
         <div class="pb-6">
           <div class="font-medium flex">
