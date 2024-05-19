@@ -85,7 +85,7 @@ function DelusionCalculator()
 
     <form action="/delusion-calculator-result/" method="POST" class="comment-form">
 
-      <div style="" class="bg-white p-8 rounded-lg shadow max-w-md mx-auto">
+      <div style="" class="bg-white p-8 rounded-lg shadow max-w-lg mx-auto">
         <div class="text-4xl font-semibold mb-6 text-black">What Percentage of People in United States meet your standards?
         </div>
         <div class="space-y-6">
@@ -107,19 +107,13 @@ function DelusionCalculator()
           <div class="py-2">
             <div class="font-medium mb-2 flex">
               <p class="font-bold">Age</p>
-              <div style="margin-left:auto; margin-right:10px; width: 200px;" slider id="slider-distance">
+              <div style="width: 350px;" slider id="slider-distance">
                 <div>
                   <div inverse-left style="width:70%;"></div>
                   <div inverse-right style="width:70%;"></div>
                   <div range style="left:30%;right:40%;"></div>
                   <span thumb style="left:30%;"></span>
                   <span thumb style="left:60%;"></span>
-                  <div sign style="left:30%;">
-                    <span id="value">30</span>
-                  </div>
-                  <div sign style="left:60%;">
-                    <span id="value">60</span>
-                  </div>
                 </div>
                 <input type="range" name="ageMin" tabindex="0" value="30" max="100" min="0" step="1" oninput="
   this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
@@ -139,7 +133,7 @@ function DelusionCalculator()
   children[9].style.left=value+'%';children[13].style.left=value+'%';
   children[13].childNodes[1].innerHTML=this.value;" />
               </div>
-              <div style="margin-right:50px;">
+              <div style="">
                 <span id="leftThumbValue" style="font-weight:bold;">30</span>
                 <span>-</span>
                 <span id="rightThumbValue" style="font-weight:bold;">60</span>
@@ -150,7 +144,7 @@ function DelusionCalculator()
           </div>
         </div>
 
-        <div class="flex pb-6">
+        <div class="space-y-6 pb-6">
           <div>
             <label class="text-[#FF1D74]" for="obese"><b>Exclude Obese</b></label>
             <input type="checkbox" class="accent-pink-500" name="obese" id="obese" />
@@ -164,7 +158,7 @@ function DelusionCalculator()
         <div class="pb-6">
           <div class="font-medium flex">
             <p class="font-bold" style="width:15%">Height</p>
-            <div style="width:55%;margin-left:auto; margin-right:5px; width:200px; position:relative; margin-left:auto;" slider
+            <div style="width:65%;margin-left:auto; margin-right:5px; width:280px; position:relative; margin-left:auto;" slider
               id="slider-height">
               <div>
                 <div inverse-left style="width:70%;"></div>
@@ -206,7 +200,7 @@ function DelusionCalculator()
       document.getElementById('rightThumbFeet').textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
     " />
             </div>
-            <div style="width:30%; margin-left:auto;">
+            <div style="width:20%; margin-left:auto;">
               <span id="leftThumbValueH" style="margin-left:auto; font-weight:bold;">2'6''</span>
               <span>-</span>
               <span id="rightThumbValueH" style="font-weight:bold;">5'0''</span>
@@ -219,7 +213,7 @@ function DelusionCalculator()
         <div class="pb-4">
           <div class="font-medium mb-2 flex">
             <p class="font-bold">Income</p>
-            <div style="width:200px" slider id="slider-distance">
+            <div style="width:280px" slider id="slider-distance">
               <div>
                 <div inverse-left style="width:70%;"></div>
                 <div inverse-right style="width:70%;"></div>
