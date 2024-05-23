@@ -143,7 +143,7 @@ function DelusionCalculator()
                   <span thumb style="left:30%;"></span>
                   <span thumb style="left:60%;"></span>
                 </div>
-                <input type="range" id="minAge" name="ageMin" tabindex="0" value="30" max="100" min="0" step="1" oninput="
+                <input type="range" id="minAge" name="ageMin" tabindex="0" value="30" max="100" min="0" step="2" oninput="
   this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
   var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
   var children = this.parentNode.childNodes[1].childNodes;
@@ -152,7 +152,7 @@ function DelusionCalculator()
   children[7].style.left=value+'%';children[11].style.left=value+'%';
   children[11].childNodes[1].innerHTML=this.value;" />
 
-                <input type="range" id="maxAge" name="ageMax" tabindex="0" value="60" max="100" min="0" step="1" oninput="
+                <input type="range" id="maxAge" name="ageMax" tabindex="0" value="60" max="100" min="0" step="2" oninput="
   this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
   var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
   var children = this.parentNode.childNodes[1].childNodes;
@@ -293,11 +293,11 @@ function DelusionCalculator()
 
           // Add event listeners to update the values when sliders are moved
           leftSlider.addEventListener('input', function () {
-            leftThumbValue.textContent = this.value;
+            leftThumbValue.textContent = parseInt(this.value/2) + 18;
           });
 
           rightSlider.addEventListener('input', function () {
-            rightThumbValue.textContent = this.value;
+            rightThumbValue.textContent = parseInt(this.value/2) + 18;
           });
         });
 
@@ -323,14 +323,14 @@ function DelusionCalculator()
 
           // Add event listeners to update the values when sliders are moved
           leftSlider.addEventListener('input', function () {
-            leftThumbValue.textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
+            leftThumbValue.textContent = `${Math.floor((this.value/2) / 12) + 4}'${this.value % 12}''`;
             const leftThumbdf = document.getElementById('leftThumb');
             const leftThumbdi = document.getElementById('leftThumb');
             const leftThumbf = document.getElementById('leftThumbFeet');
           });
 
           rightSlider.addEventListener('input', function () {
-            rightThumbValue.textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
+            rightThumbValue.textContent = `${Math.floor((this.value/2) / 12) + 4}'${this.value % 12}''`;
             rightThumbdf.setAttribute('data-feet', Math.floor(this.value / 12));
             rightThumbdi.setAttribute('data-inches', this.value % 12);
             rightThumbf.textContent = `${Math.floor(this.value / 12)}'${this.value % 12}''`;
