@@ -288,8 +288,8 @@ function DelusionCalculator()
           const rightSlider = document.getElementById('maxAge');
 
           // Update the values initially
-          leftThumbValue.textContent = leftSlider.value;
-          rightThumbValue.textContent = rightSlider.value;
+          leftThumbValue.textContent = (parseInt(leftSlider.value)/2)+18;
+          rightThumbValue.textContent = (parseInt(rightSlider.value)/2)+18;
 
           // Add event listeners to update the values when sliders are moved
           leftSlider.addEventListener('input', function () {
@@ -311,8 +311,8 @@ function DelusionCalculator()
           const rightSlider = document.getElementById('heightMax');
 
           // Update the values initially
-          leftThumbValue.textContent = `${Math.floor(leftSlider.value / 12)}'${leftSlider.value % 12}''`;
-          rightThumbValue.textContent = `${Math.floor(rightSlider.value / 12)}'${rightSlider.value % 12}''`;
+          leftThumbValue.textContent = `${Math.floor((leftSlider.value/2) / 12)+4}'${leftSlider.value % 12}''`;
+          rightThumbValue.textContent = `${Math.floor((rightSlider.value/2) / 12)+4}'${rightSlider.value % 12}''`;
           const rightThumbdf = document.getElementById('rightThumb');
           const rightThumbdi = document.getElementById('rightThumb');
           const rightThumbf = document.getElementById('rightThumbFeet');
