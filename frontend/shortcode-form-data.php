@@ -6,13 +6,13 @@ function handle_delusion_calculator_form()
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Retrieve form data
         $gender = isset($_POST['gender']) ? ($_POST['gender'] == 'men' ? 'Male' : 'Female') : 'Male';
-        $ageRangeMin = $_POST['ageMin'];
-        $ageRangeMax = $_POST['ageMax'];
+        $ageRangeMin = $_POST['ageMin']/2 +18;
+        $ageRangeMax = $_POST['ageMax']/2 + 18;
         $minIncome = $_POST['minIncome'];
         $maxIncome = $_POST['maxIncome'];
         $ethnicity = $_POST['ethnicity'];
         $excludeObese = isset($_POST['obese']) ? 'Yes' : 'No';
-        $excludeMarried = isset($_POST['married']) ? 'Single' : '';
+        $excludeMarried = isset($_POST['married']) ? 'Married' : 'Single';
         $minHeight = $_POST['heightMin'];
         $maxHeight = $_POST['heightMax'];
 
@@ -31,14 +31,16 @@ function handle_delusion_calculator_form()
             'income_slider_min' => $minIncome * 1000,   
             'income_slider_max' => $maxIncome * 1000,   
             'race' => ucfirst($ethnicity_straight) ,  // Selected races: White and Asian
-            'height_feet' => floor($minHeight / 12),
+            'height_feet' => floor((($minHeight/2) + 48) / 12),
             'height_inches' => ($minHeight % 12),
-            'height_feet_max' => floor($maxHeight / 12),
+            'height_feet_max' => floor((($maxHeight/2) + 48) / 12),
             'height_inches_max' => ($maxHeight % 12),
             'gender_preference' => $gender, // Optional: Male partner preference
             'exclude_obese' => $excludeObese,    // Optional: Exclude obese individuals
             'exclude_married' => $excludeMarried,
         ];
+        
+        print_r($formData);
 
         $results = calculate_dating_pool($formData);
         $american_population = $gender == 'Male' ? array('gender' => 'men', 'population' => 164977341) : array('gender' => 'women', 'population' => 168310216);
@@ -99,7 +101,7 @@ function handle_delusion_calculator_form()
                     return "Star Catcher";
                     break;
                 case 5:
-                    return "Planet Rider";
+                    return "Your origins lie beyond Earth's sphere";
                     break;
                 default:
                     return "Invalid count";
